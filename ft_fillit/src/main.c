@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbondoer <pbondoer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smadnaik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/15 17:41:37 by pbondoer          #+#    #+#             */
-/*   Updated: 2016/02/09 16:52:51 by pbondoer         ###   ########.fr       */
+/*   Created: 2018/05/10 23:12:51 by smadnaik          #+#    #+#             */
+/*   Updated: 2018/05/10 23:16:18 by smadnaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include <fcntl.h>
 #include "libft.h"
 #include "fillit.h"
-
-/*
-** Entry point for our application
-*/
 
 int		main(int argc, char **argv)
 {
