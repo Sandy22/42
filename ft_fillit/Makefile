@@ -6,60 +6,53 @@
 #    By: smadnaik <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/29 18:37:09 by smadnaik          #+#    #+#              #
-#    Updated: 2018/05/11 00:55:44 by smadnaik         ###   ########.fr        #
+#    Updated: 2018/05/28 06:30:55 by smadnaik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= fillit 
+NAME = fillit
 
-# directories
-SRC_DIR	= ./src
-INC_DIR	= ./includes
-OBJ_DIR	= ./obj
-LIB_DIR	= ./lib
+SRC = main.c\
+	  read.c\
+	  solve.c\
+	  arrange.c\
+	  tetriminos.c\
+	  check.c\
+	  usage.c\
+	  shape.c
 
-# src / obj files
-SRC		= main.c \
-		   reader.c \
-		   solver.c \
-		   map.c \
-		   tetrimino.c
-OBJ		= $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+OBJ = $(SRC:.c=.o)
 
-# compiler and flags
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -pedantic -std=c99
-OFLAGS	= -pipe -flto
-CFLAGS	+= $(OFLAGS)
+SRC_PATH = src/
 
-# libraries
-L_FT	:= $(LIB_DIR)/libft
+SRC_POS = $(addprefix $(SRC_PATH),$(SRC))
 
-include $(L_FT)/libft.mk
+LIBFT =	lib/libft/libft.a
 
-.PHONY: all clean fclean re
+CC = gcc
 
-all:
-	mkdir -p $(OBJ_DIR)
-	@$(MAKE) -C $(L_FT) --no-print-directory
-	@$(MAKE) $(NAME) --no-print-directory
+FLAGS = -Wall -Wextra -Werror
+FLAGS += -I includes/
 
-$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(LIB_INC) -I $(INC_DIR) -o $@ -c $<
+all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(OFLAGS) $(OBJ) $(LIB_LNK) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJ)
+		$(CC) $(FLAGS) $(OBJ) -o $(NAME) $(LIBFT)
+
+$(OBJ): $(LIBFT)
+		$(CC) $(FLAGS) -c $(SRC_POS) 
+
+$(LIBFT):
+		make -C ./lib/libft/
 
 clean:
-	rm -rf $(OBJ_DIR)
+		rm -f $(OBJ)
+		make clean -C ./lib/libft/
 
 fclean: clean
-	rm -rf $(NAME)
+		rm -f $(NAME)
+		make fclean -C ./lib/libft/
 
-re:
-	@$(MAKE) fclean --no-print-directory
-	@$(MAKE) all --no-print-directory
+re: fclean all
 
-relibs:
-	@$(MAKE) -C $(L_FT) re --no-print-directory
-	@$(MAKE) re --no-print-directory
+.PHONY : all, re, clean, flcean
